@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: barmarti <barmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 11:53:39 by barmarti          #+#    #+#             */
-/*   Updated: 2025/06/29 15:43:18 by barmarti         ###   ########.fr       */
+/*   Created: 2025/04/28 20:10:16 by barmarti          #+#    #+#             */
+/*   Updated: 2025/05/07 11:10:19 by barmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minitalk.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strrchr(const char *s, int c)
 {
-	pid_t	serv_pid;
-	char	*msg;
+	int	i;
+	int	index;
 
-	if (ac != 3)
+	i = 0;
+	index = 0;
+	while (s[i])
 	{
-		ft_putstr_fd("Error: please send a PID and a message\n", 2);
-		exit (EXIT_FAILURE);
+		if (s[i] == (unsigned char)c)
+			index = i + 1;
+		i++;
 	}
-	serv_pid = ft_atoi(av[1]);
-	msg = av[2];
-	ft_signal(SIGUSR1, demand_handler, false);
-	ft_signal(SIGUSR2, stop_handler, false);
-	send_msg(serv_pid, msg);
-	return (0);
+	if (index >= 1)
+		return ((char *)&s[index - 1]);
+	else if ((unsigned char)c == 0)
+		return ((char *)&s[i]);
+	else
+		return (NULL);
 }

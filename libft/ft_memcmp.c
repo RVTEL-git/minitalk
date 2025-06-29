@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: barmarti <barmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 11:53:39 by barmarti          #+#    #+#             */
-/*   Updated: 2025/06/29 15:43:18 by barmarti         ###   ########.fr       */
+/*   Created: 2025/05/07 12:54:35 by barmarti          #+#    #+#             */
+/*   Updated: 2025/05/09 18:34:37 by barmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minitalk.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	pid_t	serv_pid;
-	char	*msg;
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
 
-	if (ac != 3)
+	str1 = (unsigned char *) s1;
+	str2 = (unsigned char *) s2;
+	i = 0;
+	while (i < n)
 	{
-		ft_putstr_fd("Error: please send a PID and a message\n", 2);
-		exit (EXIT_FAILURE);
+		if ((unsigned char) str1[i] != (unsigned char) str2[i])
+			return ((unsigned char) str1[i] - (unsigned char) str2[i]);
+		i++;
 	}
-	serv_pid = ft_atoi(av[1]);
-	msg = av[2];
-	ft_signal(SIGUSR1, demand_handler, false);
-	ft_signal(SIGUSR2, stop_handler, false);
-	send_msg(serv_pid, msg);
 	return (0);
 }

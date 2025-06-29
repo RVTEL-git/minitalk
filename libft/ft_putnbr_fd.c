@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: barmarti <barmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 11:53:39 by barmarti          #+#    #+#             */
-/*   Updated: 2025/06/29 15:43:18 by barmarti         ###   ########.fr       */
+/*   Created: 2025/05/06 10:47:03 by barmarti          #+#    #+#             */
+/*   Updated: 2025/06/29 14:37:56 by barmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minitalk.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+void	ft_putnbr_fd(int n, int fd)
 {
-	pid_t	serv_pid;
-	char	*msg;
+	long int	nbr;
 
-	if (ac != 3)
+	nbr = n;
+	if (nbr < 0)
 	{
-		ft_putstr_fd("Error: please send a PID and a message\n", 2);
-		exit (EXIT_FAILURE);
+		ft_putchar_fd('-', fd);
+		nbr = nbr * -1;
 	}
-	serv_pid = ft_atoi(av[1]);
-	msg = av[2];
-	ft_signal(SIGUSR1, demand_handler, false);
-	ft_signal(SIGUSR2, stop_handler, false);
-	send_msg(serv_pid, msg);
-	return (0);
+	if (nbr < 10)
+		ft_putchar_fd(nbr + 48, fd);
+	else
+	{
+		ft_putnbr_fd(nbr / 10, fd);
+		ft_putchar_fd(nbr % 10 + 48, fd);
+	}
 }

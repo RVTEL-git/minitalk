@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: barmarti <barmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 11:53:39 by barmarti          #+#    #+#             */
-/*   Updated: 2025/06/29 15:43:18 by barmarti         ###   ########.fr       */
+/*   Created: 2025/04/29 18:32:23 by barmarti          #+#    #+#             */
+/*   Updated: 2025/06/29 18:21:03 by barmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minitalk.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+#include <string.h>
+
+void	*ft_memset(void *p, int value, size_t len)
 {
-	pid_t	serv_pid;
-	char	*msg;
+	unsigned char	*u;
 
-	if (ac != 3)
+	u = (unsigned char *)p;
+	while (len > 0)
 	{
-		ft_putstr_fd("Error: please send a PID and a message\n", 2);
-		exit (EXIT_FAILURE);
+		*u = (unsigned char)value;
+		u++;
+		len--;
 	}
-	serv_pid = ft_atoi(av[1]);
-	msg = av[2];
-	ft_signal(SIGUSR1, demand_handler, false);
-	ft_signal(SIGUSR2, stop_handler, false);
-	send_msg(serv_pid, msg);
-	return (0);
+	return (p);
 }

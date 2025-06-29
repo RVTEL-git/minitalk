@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: barmarti <barmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 11:53:39 by barmarti          #+#    #+#             */
-/*   Updated: 2025/06/29 15:43:18 by barmarti         ###   ########.fr       */
+/*   Created: 2025/05/06 10:53:56 by barmarti          #+#    #+#             */
+/*   Updated: 2025/05/07 11:51:34 by barmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minitalk.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	pid_t	serv_pid;
-	char	*msg;
+	unsigned int	i;
+	char			*dup;
 
-	if (ac != 3)
+	i = 0;
+	dup = (char *)malloc(sizeof(char) * (ft_strlen((char *)s) + 1));
+	if (!dup)
+		return (NULL);
+	while (s[i])
 	{
-		ft_putstr_fd("Error: please send a PID and a message\n", 2);
-		exit (EXIT_FAILURE);
+		dup[i] = f(i, s[i]);
+		i++;
 	}
-	serv_pid = ft_atoi(av[1]);
-	msg = av[2];
-	ft_signal(SIGUSR1, demand_handler, false);
-	ft_signal(SIGUSR2, stop_handler, false);
-	send_msg(serv_pid, msg);
-	return (0);
+	dup[i] = '\0';
+	return (dup);
 }

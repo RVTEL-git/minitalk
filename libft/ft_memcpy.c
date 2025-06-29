@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: barmarti <barmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 11:53:39 by barmarti          #+#    #+#             */
-/*   Updated: 2025/06/29 15:43:18 by barmarti         ###   ########.fr       */
+/*   Created: 2025/04/29 18:32:18 by barmarti          #+#    #+#             */
+/*   Updated: 2025/05/07 11:38:39 by barmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minitalk.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+void	*ft_memcpy(void *destination, const void *source, size_t size)
 {
-	pid_t	serv_pid;
-	char	*msg;
+	size_t				i;
+	unsigned char		*dest;
+	const unsigned char	*src;
 
-	if (ac != 3)
+	i = 0;
+	if (!destination && !source)
+		return (NULL);
+	dest = (unsigned char *)destination;
+	src = (const unsigned char *)source;
+	while (i < size)
 	{
-		ft_putstr_fd("Error: please send a PID and a message\n", 2);
-		exit (EXIT_FAILURE);
+		dest[i] = src[i];
+		i++;
 	}
-	serv_pid = ft_atoi(av[1]);
-	msg = av[2];
-	ft_signal(SIGUSR1, demand_handler, false);
-	ft_signal(SIGUSR2, stop_handler, false);
-	send_msg(serv_pid, msg);
-	return (0);
+	return (destination);
 }

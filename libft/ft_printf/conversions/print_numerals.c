@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   print_numerals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: barmarti <barmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 11:53:39 by barmarti          #+#    #+#             */
-/*   Updated: 2025/06/29 15:43:18 by barmarti         ###   ########.fr       */
+/*   Created: 2025/05/22 12:05:43 by barmarti          #+#    #+#             */
+/*   Updated: 2025/06/29 18:22:41 by barmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minitalk.h"
+#include "ft_printf.h"
 
-int	main(int ac, char **av)
+int	print_num(int i)
 {
-	pid_t	serv_pid;
-	char	*msg;
+	int	size;
 
-	if (ac != 3)
-	{
-		ft_putstr_fd("Error: please send a PID and a message\n", 2);
-		exit (EXIT_FAILURE);
-	}
-	serv_pid = ft_atoi(av[1]);
-	msg = av[2];
-	ft_signal(SIGUSR1, demand_handler, false);
-	ft_signal(SIGUSR2, stop_handler, false);
-	send_msg(serv_pid, msg);
-	return (0);
+	size = get_size(i, 10);
+	ft_putnbr_fd(i, 1);
+	return (size);
+}
+
+int	print_unit(unsigned int uni)
+{
+	int	size;
+
+	size = get_size(uni, 10);
+	print_unsigned(uni);
+	return (size);
+}
+
+int	print_x(int x, char specifier)
+{
+	int	size;
+
+	size = print_hex(x, specifier);
+	return (size);
 }
